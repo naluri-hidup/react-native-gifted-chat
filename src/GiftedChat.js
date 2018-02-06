@@ -8,7 +8,7 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Animated, Platform, StyleSheet, View } from 'react-native';
+import { Animated, Platform, StyleSheet, View, Platform } from 'react-native';
 
 import ActionSheet from '@expo/react-native-action-sheet';
 import moment from 'moment';
@@ -355,8 +355,10 @@ class GiftedChat extends React.Component {
   resetInputToolbar() {
     if (this.textInput) {
       this.textInput.clear();
-      this.textInput.setNativeProps({keyboardType:"email-address"});
-      this.textInput.setNativeProps({keyboardType:"default"});
+      if (Platform.OS === "android") {
+        this.textInput.setNativeProps({keyboardType:"email-address"});
+        this.textInput.setNativeProps({keyboardType:"default"});
+      }
     }
     this.notifyInputTextReset();
     const newComposerHeight = MIN_COMPOSER_HEIGHT;
